@@ -33,7 +33,7 @@ struct DonationsView: View {
                 .padding()
                 
                 Divider()
-                /* NavigationLink(destination: ContentView().navigationBarBackButtonHidden(true)) {
+                NavigationLink(destination: HoursView().navigationBarBackButtonHidden(true)) {
                  HStack {
                  Image(systemName: "arrow.left.circle.fill")
                  .resizable()
@@ -49,7 +49,7 @@ struct DonationsView: View {
                  .offset(y: -1145)
                  .offset(x: -120)
                  
-                 NavigationLink(destination: Pag5(quantity1: $quantity1, quantity2: $quantity2, quantity3: $quantity3, quantity4: $quantity4, quantity5: $quantity5)) {
+                 NavigationLink(destination: SummaryView(quantity1: $quantity1, quantity2: $quantity2, quantity3: $quantity3, quantity4: $quantity4, quantity5: $quantity5)) {
                  Text("Donar")
                  .font(.headline)
                  .foregroundColor(.white)
@@ -65,7 +65,7 @@ struct DonationsView: View {
                  .background(
                  LinearGradient(gradient: Gradient(colors: [Color.orange, Color.yellow]), startPoint: .top, endPoint: .bottom)
                  .edgesIgnoringSafeArea(.all)
-                 )*/
+                 )
             }
         }
     }
@@ -99,10 +99,9 @@ struct DonationsView: View {
         }
     }
     
-    
     struct DonationsView_Previews: PreviewProvider {
         static var previews: some View {
             DonationsView()
         }
     }
-}
+
