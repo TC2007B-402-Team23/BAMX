@@ -52,9 +52,8 @@ struct HoursView: View {
                             .cornerRadius(20)
                             .padding(.horizontal, 20)
                             .padding(.bottom, 20)
+                            .navigationBarBackButtonHidden(true)
                     }
-                    .navigationBarHidden(true)
-                    .navigationBarBackButtonHidden(true)
                 }
                 NavigationLink(destination: CalendarView().navigationBarBackButtonHidden(true)) {
                     HStack {
@@ -71,6 +70,7 @@ struct HoursView: View {
                 .offset(x: -120)
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -85,6 +85,7 @@ struct Horas: View {
             HoraButton(text: "11:30 - 12:00", selectedHora: $selectedHora)
             HoraButton(text: "12:00 - 12:30", selectedHora: $selectedHora)
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -104,6 +105,7 @@ struct HoraButton: View {
                 .background(selectedHora == text ? Color.green : Color.red)
                 .cornerRadius(60)
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

@@ -29,10 +29,10 @@ struct CalendarView: View {
                             .padding()
                             .background(Color.blue)
                             .cornerRadius(10)
+                            .navigationBarBackButtonHidden(true)
                     }
-                    .navigationBarHidden(true)
-                    .navigationBarBackButtonHidden(true) 
                 }
+                
                 NavigationLink(destination: HomeView(authenticationViewModel: AuthenticationViewModel()).navigationBarBackButtonHidden(true)) {
                     HStack {
                         Image(systemName: "arrow.left.circle.fill")
@@ -48,6 +48,7 @@ struct CalendarView: View {
                 .offset(x: -120)
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -73,6 +74,7 @@ struct Horarios: View {
                 .labelsHidden()
                 .padding(.bottom, 85)
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

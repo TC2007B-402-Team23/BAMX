@@ -74,6 +74,7 @@ struct SummaryView: View {
                          }
                         .padding()
                     }
+                    .navigationBarBackButtonHidden(true)
             }
     }
     
@@ -100,6 +101,7 @@ struct SummaryView: View {
                     .shadow(radius: 5)
             )
             .padding(.vertical, 10)
+            .navigationBarBackButtonHidden(true)
         }
     }
     

@@ -36,14 +36,14 @@ struct DonationsView: View {
                 NavigationLink(destination: HoursView().navigationBarBackButtonHidden(true)) {
                  HStack {
                  Image(systemName: "arrow.left.circle.fill")
-                 .resizable()
-                 .frame(width: 20, height: 20)
-                 Text("Regresar")
-                 .font(.headline)
-                 .fontWeight(.bold)
+                     .resizable()
+                     .frame(width: 20, height: 20)
+                     Text("Regresar")
+                     .font(.headline)
+                     .fontWeight(.bold)
                  
-                 }
-                 .foregroundColor(.blue)
+                    }
+                    .foregroundColor(.blue)
                  
                  }
                  .offset(y: -1145)
@@ -67,6 +67,7 @@ struct DonationsView: View {
                  .edgesIgnoringSafeArea(.all)
                  )
             }
+            .navigationBarBackButtonHidden(true)
         }
     }
     
@@ -96,6 +97,7 @@ struct DonationsView: View {
                     .shadow(radius: 5)
             )
             .padding(.vertical, 10)
+            .navigationBarBackButtonHidden(true)
         }
     }
     
