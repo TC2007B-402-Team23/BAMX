@@ -8,6 +8,7 @@ import SwiftUI
 
 struct HomeView: View {
     @ObservedObject var authenticationViewModel: AuthenticationViewModel
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -52,7 +53,7 @@ struct Cards: View{
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                         VStack(alignment: .leading){
-                            NavigationLink(destination: CalendarView().navigationBarBackButtonHidden(true)) {
+                            NavigationLink(destination: CalendarView(selectedCenter: "BasilicaZ").navigationBarBackButtonHidden(true)) {
                                 Text("Basilica de Zapopan")
                                     .font(.system(size: 25, weight: .bold, design: .serif))
                                     .foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)))
@@ -71,7 +72,7 @@ struct Cards: View{
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                         VStack(alignment: .leading){
-                            NavigationLink(destination: CalendarView().navigationBarBackButtonHidden(true)){
+                            NavigationLink(destination: CalendarView(selectedCenter: "Colomos").navigationBarBackButtonHidden(true)){
                                 Text("Parque Colomos")
                                     .font(.system(size: 25, weight: .bold, design: .serif))
                                     .foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)))
@@ -90,7 +91,7 @@ struct Cards: View{
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                         VStack(alignment: .leading){
-                            NavigationLink(destination: CalendarView().navigationBarBackButtonHidden(true)){
+                            NavigationLink(destination: CalendarView(selectedCenter: "Tlaque").navigationBarBackButtonHidden(true)){
                                 Text("Tlaquepaque")
                                     .font(.system(size: 25, weight: .bold, design: .serif))
                                     .foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)))

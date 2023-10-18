@@ -7,34 +7,32 @@
 import SwiftUI
 
 struct SummaryView: View {
-    @Binding var quantity1: Double
-    @Binding var quantity2: Double
-    @Binding var quantity3: Double
-    @Binding var quantity4: Double
-    @Binding var quantity5: Double
+    let selectedCenter: String
+    let selectedDate: Date
+    let selectedHour: String
+    let selectedDonation: [String: Double]
+    
     @State private var isDonationConfirmed = false
     @State private var showRanking = false
-    
+
     var body: some View {
         ZStack {
             Color(#colorLiteral(red: 0.8666, green: 0.5215, blue: 0.0392, alpha: 1))
                 .edgesIgnoringSafeArea(.all)
-            
+
             VStack {
                 Text("Resumen de Donación")
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .padding(.top, 20)
+                    .padding(.top, 100)
                     .foregroundColor(.white)
-                
-                DonationSummary(foodName: "Arroz", quantity: quantity1)
-                DonationSummary(foodName: "Frijoles", quantity: quantity2)
-                DonationSummary(foodName: "Lentejas", quantity: quantity3)
-                DonationSummary(foodName: "Enlatados", quantity: quantity4)
-                DonationSummary(foodName: "Aceite", quantity: quantity5)
-                
+
+                ForEach(selectedDonation.sorted(by: <), id: \.key) { item in
+                    DonationSummary(foodName: item.key, quantity: item.value)
+                }
+
                 Spacer()
-                NavigationLink(destination: DonationsView().navigationBarBackButtonHidden(true)) {
+                NavigationLink(destination: DonationsView(selectedCenter: selectedCenter, selectedDate: selectedDate, selectedHour: selectedHour).navigationBarBackButtonHidden(true)) {
                     HStack {
                         Image(systemName: "arrow.left.circle.fill")
                             .resizable()
@@ -49,47 +47,47 @@ struct SummaryView: View {
                 .offset(x: -120)
 
                 Button(action: {
-                    isDonationConfirmed = true}) {
-                        Text("Confirmar Donación")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.blue)
-                            .cornerRadius(10)
-                            .padding(.horizontal, 20)
-                        }
-                         .padding(.bottom, 20)
-                         .alert(isPresented: $isDonationConfirmed) {
-                             Alert(
-                                title: Text("Donación Confirmada"),
-                                message: Text("Gracias por tu generosidad"),
-                                dismissButton: .default(Text("Aceptar")) {
-                                    showRanking = true
-                                })
-                             }
-                             .sheet(isPresented: $showRanking) {
-                                UsersRankingView()
-                             }
-                         }
+                    isDonationConfirmed = true
+                }) {
+                    Text("Confirmar Donación")
+                        .font(.headline)
+                        .foregroundColor(.white)
                         .padding()
-                    }
-                    .navigationBarBackButtonHidden(true)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                        .padding(.horizontal, 20)
+                }
+                .padding(.bottom, 20)
+                .alert(isPresented: $isDonationConfirmed) {
+                    Alert(
+                        title: Text("Donación Confirmada"),
+                        message: Text("Gracias por tu generosidad"),
+                        dismissButton: .default(Text("Aceptar")) {
+                            showRanking = true
+                        }
+                    )
+                }
+                .sheet(isPresented: $showRanking) {
+                    UsersRankingView()
+                }
             }
+            .navigationBarBackButtonHidden(true)
+        }
     }
-    
+
     struct DonationSummary: View {
         var foodName: String
         var quantity: Double
-        
+
         var body: some View {
             HStack {
                 Text(foodName)
                     .font(.title)
                     .foregroundColor(.blue)
-                
+
                 Spacer()
-                
+
                 Text("Cantidad: \(Int(quantity)) KG")
                     .font(.headline)
                     .foregroundColor(.secondary)
@@ -104,10 +102,10 @@ struct SummaryView: View {
             .navigationBarBackButtonHidden(true)
         }
     }
-    
-struct SummaryView_Previews: PreviewProvider {
-    static var previews: some View {
-        SummaryView(quantity1: .constant(1.0), quantity2: .constant(1.0), quantity3: .constant(1.0), quantity4: .constant(1.0), quantity5: .constant(1.0))
+
+    struct SummaryView_Previews: PreviewProvider {
+        static var previews: some View {
+            SummaryView(selectedCenter: "NA", selectedDate: Date(), selectedHour: "", selectedDonation:["Arroz": 1.5, "Frijoles": 2.0])
+        }
     }
 }
-

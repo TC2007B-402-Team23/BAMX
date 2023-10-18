@@ -7,42 +7,44 @@
 import SwiftUI
 
 struct HoursView: View {
-    @State private var selectedHora: String?
-    
+    @State private var selectedHour: String = ""
+    let selectedCenter: String
+    let selectedDate: Date
+
     var body: some View {
         NavigationView {
-            ZStack {
+            ZStack{
                 Color(#colorLiteral(red: 0.8666, green: 0.5215, blue: 0.0392, alpha: 1))
-                    .edgesIgnoringSafeArea(.all)
-                
+                                .edgesIgnoringSafeArea(.all)
+                            
                 VStack {
                     Text("Miércoles")
                         .font(.largeTitle)
                         .foregroundColor(.white)
-                        .padding(.top, 20)
-                    
+                        .padding(.top, 70)
+
                     Text("6 de octubre de 2023")
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                    
+
                     Divider()
                         .background(.white)
                         .frame(height: 2)
                         .padding(.top, 10)
-                    
+                                                    
                     Text("Seleccione un horario")
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                         .padding(.top, 20)
-                        .padding(.bottom, 40)
+                        .padding(.bottom, 60)
                     
-                    Horas(selectedHora: $selectedHora)
+                    HourSelection(selectedHour: $selectedHour)
                     
                     Spacer()
                     
-                    NavigationLink(destination: DonationsView()) {
+                    NavigationLink(destination: DonationsView(selectedCenter: selectedCenter, selectedDate: selectedDate, selectedHour: selectedHour)) {
                         Text("Continuar")
                             .font(.headline)
                             .foregroundColor(.white)
@@ -55,7 +57,7 @@ struct HoursView: View {
                             .navigationBarBackButtonHidden(true)
                     }
                 }
-                NavigationLink(destination: CalendarView().navigationBarBackButtonHidden(true)) {
+                NavigationLink(destination: CalendarView(selectedCenter: selectedCenter).navigationBarBackButtonHidden(true)) {
                     HStack {
                         Image(systemName: "arrow.left.circle.fill")
                             .resizable()
@@ -74,43 +76,40 @@ struct HoursView: View {
     }
 }
 
-
-struct Horas: View {
-    @Binding var selectedHora: String?
+struct HourSelection: View {
+    @Binding var selectedHour: String
 
     var body: some View {
-        VStack(spacing: 25) {
-            HoraButton(text: "10:30 - 11:00", selectedHora: $selectedHora)
-            HoraButton(text: "11:00 - 11:30", selectedHora: $selectedHora)
-            HoraButton(text: "11:30 - 12:00", selectedHora: $selectedHora)
-            HoraButton(text: "12:00 - 12:30", selectedHora: $selectedHora)
+        VStack {
+            HourButton(time: "10:30 - 11:00", selectedHour: $selectedHour)
+            HourButton(time: "11:00 - 11:30", selectedHour: $selectedHour)
+            HourButton(time: "11:30 - 12:00", selectedHour: $selectedHour)
+            HourButton(time: "12:00 - 12:30", selectedHour: $selectedHour)
         }
-        .navigationBarBackButtonHidden(true)
     }
 }
 
-struct HoraButton: View {
-    let text: String
-    @Binding var selectedHora: String?
+struct HourButton: View {
+    let time: String
+    @Binding var selectedHour: String
 
     var body: some View {
         Button(action: {
-            selectedHora = text
+            selectedHour = time
         }) {
-            Text(text.uppercased())
+            Text(time.uppercased())
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding(30)
                 .frame(width: 350, height: 70)
-                .background(selectedHora == text ? Color.green : Color.red)
+                .background(selectedHour == time ? Color.green : Color.red)
                 .cornerRadius(60)
         }
-        .navigationBarBackButtonHidden(true)
     }
 }
 
 struct HoursView_Previews: PreviewProvider {
     static var previews: some View {
-        HoursView()
+        HoursView(selectedCenter: "NA", selectedDate: Date())
     }
 }
