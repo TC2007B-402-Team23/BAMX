@@ -57,6 +57,7 @@ struct InventoryView: View {
                 .padding(.top, 40)
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -104,6 +105,7 @@ struct Centros: View {
                 }
             }
             .padding(.leading, 50)
+            .navigationBarBackButtonHidden(true)
         }
     }
     

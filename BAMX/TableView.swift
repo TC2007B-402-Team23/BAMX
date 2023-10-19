@@ -7,13 +7,38 @@
 
 import SwiftUI
 
+struct DonationSummary: View {
+    var item: InventoryItem
+    
+    var body: some View {
+        HStack {
+            Text(item.product)
+                .font(.title)
+                .foregroundColor(.blue)
+            
+            Spacer()
+            
+            Text("Cantidad: \(Int(item.kilos)) KG")
+                .font(.headline)
+                .foregroundColor(.secondary)
+        }
+        .padding(20)
+        .background(
+            RoundedRectangle(cornerRadius: 15)
+                .foregroundColor(.white)
+                .shadow(radius: 5)
+        )
+        .padding(.vertical, 10)
+    }
+}
+
 struct TableView: View {
     @State private var items: [InventoryItem] = []
     @State private var isLoading = false
     let selectedCenterID: String
 
     var body: some View {
-        Text("Selected Center: \(selectedCenterID)")
+        //Text("Selected Center: \(selectedCenterID)")
         NavigationView {
             ZStack {
                 Color(#colorLiteral(red: 0.8666, green: 0.5215, blue: 0.0392, alpha: 1))
@@ -23,39 +48,43 @@ struct TableView: View {
                     .fill(.white)
                     .padding(-80)
                 
-    
                     VStack {
+                        Text("Inventario de: \(selectedCenterID)" )
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+                            .padding(.top, 35)
+                        
                             if isLoading {
                                 ProgressView("Cargando...")
                             } else {
                                 List(items) { item in
-                                    Text(item.product)
-                                    Text("\(item.kilos)")
-                                }
+                                   DonationSummary(item: item)
+                               }
                             }
                         }
-                  
-            }
                 
-                NavigationLink(destination: InventoryView(authenticationViewModel: AuthenticationViewModel()).navigationBarBackButtonHidden(true)) {
-                    HStack {
-                        Image(systemName: "arrow.left.circle.fill")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        Text("Regresar")
-                            .font(.headline)
-                            .fontWeight(.bold)
+                        NavigationLink(destination: InventoryView(authenticationViewModel: AuthenticationViewModel()).navigationBarBackButtonHidden(true)) {
+                            HStack {
+                                Image(systemName: "arrow.left.circle.fill")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                Text("Regresar")
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                            }
+                            .foregroundColor(.blue)
+                        }
+                        .offset(y: -350)
+                        .offset(x: -120)
+                        .navigationBarBackButtonHidden(true)
                     }
-                    .foregroundColor(.blue)
-                }
-                .offset(y: -350)
-                .offset(x: -120)
+                    .onAppear(
+                        perform: fetchData
+                    )
             }
-        .navigationBarBackButtonHidden(true)
-        .onAppear(
-            perform: fetchData
-        )
     }
+    
     func fetchData() {
 
         guard let url = URL(string: "http://34.136.18.70/warehouse?id_recollection_center=\(selectedCenterID)") else {
@@ -86,7 +115,9 @@ struct TableView: View {
             } else if let error = error {
                 print("Error al realizar la solicitud GET: \(error)")
             }
-        }.resume()
+        }
+        .resume()
+
     }
 }
 
