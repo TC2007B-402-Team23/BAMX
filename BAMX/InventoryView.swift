@@ -1,17 +1,22 @@
 //
-//  HomeView.swift
+//  InventoryView.swift
+//  BAMX
 //
-//
-//  Created by user246289 on 10/11/23.
+//  Created by Emma Gabriela Alfaro on 19/10/23.
 //
 import SwiftUI
 
-struct HomeView: View {
+struct InventoryItem: Identifiable, Decodable {
+    var id: String
+    var product: String
+    var kilos: Int
+}
+
+struct InventoryView: View {
     @ObservedObject var authenticationViewModel: AuthenticationViewModel
     @State private var selectedCenterID: String = "NA"
-    @State private var isInventoryActive: Bool = false
-
-
+    @State private var inventory: [InventoryItem] = []
+    
     struct RecollectionCenter: Identifiable {
         var id: String
         var name: String
@@ -39,11 +44,11 @@ struct HomeView: View {
                     Imagen()
                         .frame(height: 170)
                     Text("Bienvenido \(authenticationViewModel.user?.email ?? "No user")")
-                    Cards(recollectionCenters: recollectionCenters, selectedCenterID: $selectedCenterID) 
+                    Centros(recollectionCenters: recollectionCenters, selectedCenterID: $selectedCenterID, inventory: $inventory)
                 }
                 .padding(.bottom, 20)
                 .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle("Home")
+                .navigationTitle("Inventario")
                 .toolbar {
                     Button("Logout") {
                         authenticationViewModel.logout()
@@ -55,17 +60,19 @@ struct HomeView: View {
     }
 }
 
-struct Cards: View {
-    let recollectionCenters: [HomeView.RecollectionCenter]
-    @Binding var selectedCenterID: String 
+struct Centros: View {
+    let recollectionCenters: [InventoryView.RecollectionCenter]
+    @Binding var selectedCenterID: String
+    @Binding var inventory: [InventoryItem]
 
+    
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .center) {
             Text("Centros de recoleccion")
                 .font(.system(size: 27, weight: .bold, design: .serif))
                 .foregroundColor(Color(.sRGB, red: 0.207, green: 0.18, blue: 0.38, opacity: 1))
                 .padding(.top, 80)
-
+            
             ScrollView(.horizontal) {
                 HStack(spacing: 50) {
                     
@@ -76,59 +83,37 @@ struct Cards: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 280, height: 300)
                                 .cornerRadius(30)
-
+                            
                             VStack(alignment: .leading) {
-                                NavigationLink(destination: CalendarView(selectedCenterID: center.id)
+                                NavigationLink(destination: TableView(selectedCenterID: center.id)
                                     .navigationBarBackButtonHidden(true)) {
-                                    Text(center.name)
-                                        .font(.system(size: 25, weight: .bold, design: .serif))
-                                        .foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)))
-                                        .padding(.horizontal, 18)
-                                        .padding(.vertical, 15)
-                                        .background(Color.white)
-                                        .cornerRadius(20)
-                                        .offset(y: -20)
-                                        NavigationLink("in", destination: InventoryView(authenticationViewModel: AuthenticationViewModel()))
-                                            .font(.system(size: 4, weight: .bold))
-                                }
+                                        Text(center.name)
+                                            .font(.system(size: 25, weight: .bold, design: .serif))
+                                            .foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)))
+                                            .padding(.horizontal, 18)
+                                            .padding(.vertical, 15)
+                                            .background(Color.white)
+                                            .cornerRadius(20)
+                                            .offset(y: -20)
+                                    }
+
                             }
                             .frame(height: 100)
                         }
                     }
-                    AddRecollectionCenterCard()
                 }
             }
+            .padding(.leading, 50)
         }
-        .padding(.leading, 50)
+    }
+    
+    struct InventoryView_Previews: PreviewProvider {
+        static var previews: some View {
+            InventoryView(authenticationViewModel: AuthenticationViewModel())
+        }
     }
 }
 
-struct AddRecollectionCenterCard: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "plus.circle")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundColor(Color.blue)
-                .padding(30)
-                .background(Color.white)
-                .cornerRadius(30)
-                .onTapGesture {
-                    
-                }
 
-            Text("Agregar")
-            Text("Centro")
-            Text("de Recolección")
-        }
-        .foregroundColor(Color.blue)
-        .font(.system(size: 26, weight: .bold))
-        .padding(100)
-    }
-}
 
-struct HomeView_Previews: PreviewProvider {
-     static var previews: some View {
-         HomeView(authenticationViewModel: AuthenticationViewModel())
-     }
-}
+

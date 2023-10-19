@@ -12,6 +12,8 @@
 		257865492ADBB93D002DCF20 /* DonationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257865482ADBB93D002DCF20 /* DonationsView.swift */; };
 		2578654B2ADBB9FC002DCF20 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2578654A2ADBB9FC002DCF20 /* SummaryView.swift */; };
 		2578654D2ADBBAC3002DCF20 /* UsersRankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2578654C2ADBBAC3002DCF20 /* UsersRankingView.swift */; };
+		257AB2322AE1369E00A6BEB4 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AB2312AE1369E00A6BEB4 /* InventoryView.swift */; };
+		257AB2342AE1AD0000A6BEB4 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AB2332AE1AD0000A6BEB4 /* TableView.swift */; };
 		25D6F9DF2AD76C7500797A39 /* BAMXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6F9DE2AD76C7500797A39 /* BAMXApp.swift */; };
 		25D6F9E32AD76C7700797A39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25D6F9E22AD76C7700797A39 /* Assets.xcassets */; };
 		25D6F9E62AD76C7700797A39 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25D6F9E52AD76C7700797A39 /* Preview Assets.xcassets */; };
@@ -36,6 +38,8 @@
 		257865482ADBB93D002DCF20 /* DonationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationsView.swift; sourceTree = "<group>"; };
 		2578654A2ADBB9FC002DCF20 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		2578654C2ADBBAC3002DCF20 /* UsersRankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersRankingView.swift; sourceTree = "<group>"; };
+		257AB2312AE1369E00A6BEB4 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
+		257AB2332AE1AD0000A6BEB4 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		25D6F9DB2AD76C7500797A39 /* BAMX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BAMX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D6F9DE2AD76C7500797A39 /* BAMXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BAMXApp.swift; sourceTree = "<group>"; };
 		25D6F9E22AD76C7700797A39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 				25D6FA0B2AD773FF00797A39 /* AuthenticationFirebaseDatasource.swift */,
 				25D6F9F72AD7729800797A39 /* BancoDeAlimentosData.swift */,
 				25D6F9F82AD7729800797A39 /* HomeView.swift */,
+				257AB2312AE1369E00A6BEB4 /* InventoryView.swift */,
+				257AB2332AE1AD0000A6BEB4 /* TableView.swift */,
 				25D6FA092AD773B200797A39 /* DismissView.swift */,
 				25D6F9F52AD7729700797A39 /* LoginEmailView.swift */,
 				25D6F9FA2AD7729800797A39 /* RegisterEmailView.swift */,
@@ -209,10 +215,12 @@
 				257865492ADBB93D002DCF20 /* DonationsView.swift in Sources */,
 				25D6F9FE2AD7729800797A39 /* LoginEmailView.swift in Sources */,
 				25D6FA082AD7736800797A39 /* AuthenticationRepository.swift in Sources */,
+				257AB2322AE1369E00A6BEB4 /* InventoryView.swift in Sources */,
 				25D6FA062AD7731400797A39 /* AuthenticationViewModel.swift in Sources */,
 				25D6F9DF2AD76C7500797A39 /* BAMXApp.swift in Sources */,
 				257865452ADBAD38002DCF20 /* CalendarView.swift in Sources */,
 				25D6FA0A2AD773B200797A39 /* DismissView.swift in Sources */,
+				257AB2342AE1AD0000A6BEB4 /* TableView.swift in Sources */,
 				25D6F9FC2AD7729800797A39 /* AuthenticationView.swift in Sources */,
 				25D6FA012AD7729800797A39 /* HomeView.swift in Sources */,
 				257865472ADBAF7E002DCF20 /* HoursView.swift in Sources */,

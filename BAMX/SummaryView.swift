@@ -178,7 +178,6 @@ struct SummaryView: View {
             do {
                 let jsonData = try JSONSerialization.data(withJSONObject: json)
                 request.httpBody = jsonData
-                print("Se envio correctamente")
             } catch {
                 print("Error al convertir selectedDonation a JSON: \(error)")
             }
