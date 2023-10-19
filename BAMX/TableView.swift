@@ -82,7 +82,7 @@ struct TableView: View {
                     .onAppear(
                         perform: fetchData
                     )
-            }
+        }
     }
     
     func fetchData() {
