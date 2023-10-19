@@ -12,7 +12,7 @@ struct HoursView: View {
     let selectedDate: Date
 
     var body: some View {
-        Text("Selected Date: \(selectedDate)")
+        //Text("Selected Date: \(selectedDate)")
 
         NavigationView {
             ZStack{
@@ -31,7 +31,7 @@ struct HoursView: View {
                         .foregroundColor(.white)
 
                     Divider()
-                        .background(.white)
+                        .background(Color.white)
                         .frame(height: 2)
                         .padding(.top, 10)
                                                     
@@ -59,7 +59,7 @@ struct HoursView: View {
                             .navigationBarBackButtonHidden(true)
                     }
                 }
-                NavigationLink(destination: CalendarView(selectedCenterID: selectedCenterID).navigationBarBackButtonHidden(true)) {
+                NavigationLink(destination: CalendarView(selectedCenterID: selectedCenterID)) {
                     HStack {
                         Image(systemName: "arrow.left.circle.fill")
                             .resizable()

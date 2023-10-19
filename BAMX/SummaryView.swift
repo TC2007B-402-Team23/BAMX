@@ -27,11 +27,20 @@ struct SummaryView: View {
     let selectedDate: Date
     let selectedHour: String
     let selectedDonation: [String: Double]
+    @State private var json: [String: Any] = ["NA": 0]
+    @State private var productsToJSON: String = "JSON"
     
     @State private var isDonationConfirmed = false
     @State private var showRanking = false
     
     var body: some View {
+        
+        /*Text("\(selectedCenterID)")
+        Text("\(selectedDate)")
+        Text("\(selectedHour)")
+        Text("\(selectedDonation.map { "\($0.key): \($0.value) KG" }.joined(separator: ", "))")
+        */
+        
         ZStack {
             Color(#colorLiteral(red: 0.8666, green: 0.5215, blue: 0.0392, alpha: 1))
                 .edgesIgnoringSafeArea(.all)
@@ -64,6 +73,7 @@ struct SummaryView: View {
                 
                 Button(action: {
                     isDonationConfirmed = true
+                    sendDonation()
                 }) {
                     Text("Confirmar Donación")
                         .font(.headline)
@@ -91,17 +101,29 @@ struct SummaryView: View {
             .navigationBarBackButtonHidden(true)
         }
         .onAppear {
-            let jsonObjects = selectedDonation.map { key, value in
-                return ["\(key)": value]
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let deliveryDateTime = dateFormatter.string(from: selectedDate)
+
+            let products = selectedDonation.map { key, value in
+                return ["product": key, "kilos": value] as [String : Any]
             }
+            
+            let jsonObject: [String: Any] = [
+                "id_recollection_center": selectedCenterID,
+                "id_user": 3,
+                "delivery_daytime": deliveryDateTime,
+                "products": products
+            ]
 
             do {
-                let jsonData = try JSONSerialization.data(withJSONObject: jsonObjects, options: .prettyPrinted)
+                let jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
                 if let jsonString = String(data: jsonData, encoding: .utf8) {
-                    print("products = \(jsonString)")
+                    print("JSON = \(jsonString)")
+                    json = jsonObject
                 }
             } catch {
-                print("Error converting selectedDonation to JSON: \(error)")
+                print("Error al convertir a JSON: \(error)")
             }
         }
     }
@@ -133,52 +155,43 @@ struct SummaryView: View {
             }
         }
         
-        struct SummaryView_Previews: PreviewProvider {
-            static var previews: some View {
-                SummaryView(selectedCenterID: "NA", selectedDate: Date(), selectedHour: "", selectedDonation:["Arroz": 1.5, "Frijoles": 2.0])
-            }
+    struct SummaryView_Previews: PreviewProvider {
+        static var previews: some View {
+            SummaryView(selectedCenterID: "NA", selectedDate: Date(), selectedHour: "", selectedDonation: ["NA" : 0.0])
         }
     }
     
-    /*func sendDonation() {
-     guard let url = URL(string: "http://34.136.18.70/donations") else {
-     print("URL inválida")
-     return
-     }
-     let products = [
-     
-     ]
-     let json: [String: Any] = [
-     "delivery_daytime": selectedDate + selectedHour,
-     "id_recollection_center": selectedCenterID,
-     "id_user": 2,
-     "products": []
-     "kilos": selectedDonation["Atun"] ?? 0.0,
-     "product": "Atun"
-     ]
-     
-     guard let jsonData = try? JSONSerialization.data(withJSONObject: json) else {
-     print("Error al convertir los datos a JSON")
-     return
-     }
-     
-     var request = URLRequest(url: url)
-     request.httpMethod = "POST"
-     request.httpBody = jsonData
-     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-     
-     URLSession.shared.dataTask(with: request) { (data, response, error) in
-     if let error = error {
-     print("Error al realizar la solicitud: \(error)")
-     return
-     }
-     
-     if let data = data {
-     if let responseString = String(data: data, encoding: .utf8) {
-     print("Respuesta del servidor: \(responseString)")
-     }
-     }
-     }.resume()
-     }
-     }*/
+    func sendDonation() {
+        guard let url = URL(string: "http://34.136.18.70/donations") else {
+                print("URL inválida")
+                return
+            }
+
+        var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            /*let jsonObjects = selectedDonation.map { key, value in
+                return ["\(key)": value]
+            }*/
+        
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: json)
+                request.httpBody = jsonData
+                print("Se envio correctamente")
+            } catch {
+                print("Error al convertir selectedDonation a JSON: \(error)")
+            }
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let data = data {
+                    if let responseString = String(data: data, encoding: .utf8) {
+                        print("Respuesta del servidor: \(responseString)")
+                    }
+                } else if let error = error {
+                    print("Error al realizar la solicitud POST: \(error)")
+                }
+            }.resume()
+      }
+}
     

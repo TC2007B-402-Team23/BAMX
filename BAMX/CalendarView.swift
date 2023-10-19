@@ -11,7 +11,7 @@ struct CalendarView: View {
     let selectedCenterID: String
 
     var body: some View {
-        Text("Selected Center: \(selectedCenterID)")
+        //Text("Selected Center: \(selectedCenterID)")
         NavigationView {
             ZStack {
                 Color(#colorLiteral(red: 0.8666, green: 0.5215, blue: 0.0392, alpha: 1))

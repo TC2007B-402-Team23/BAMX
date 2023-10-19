@@ -8,7 +8,8 @@ import SwiftUI
 
 struct HomeView: View {
     @ObservedObject var authenticationViewModel: AuthenticationViewModel
-    
+    @State private var selectedCenterID: String = "NA"
+
     struct RecollectionCenter: Identifiable {
         var id: String
         var name: String
@@ -36,7 +37,7 @@ struct HomeView: View {
                     Imagen()
                         .frame(height: 170)
                     Text("Bienvenido \(authenticationViewModel.user?.email ?? "No user")")
-                    Cards(recollectionCenters: recollectionCenters)
+                    Cards(recollectionCenters: recollectionCenters, selectedCenterID: $selectedCenterID) // Pasar el binding aquí
                 }
                 .padding(.bottom, 20)
                 .navigationBarTitleDisplayMode(.inline)
@@ -53,15 +54,17 @@ struct HomeView: View {
 
 struct Cards: View {
     let recollectionCenters: [HomeView.RecollectionCenter]
+    @Binding var selectedCenterID: String 
 
     var body: some View {
         VStack(alignment: .leading) {
             Text("Centros de recoleccion")
                 .font(.system(size: 30, weight: .bold, design: .serif))
-                .foregroundColor(Color(#colorLiteral(red: 0.207, green: 0.18, blue: 0.38, alpha: 1)))
+                .foregroundColor(Color(.sRGB, red: 0.207, green: 0.18, blue: 0.38, opacity: 1))
 
             ScrollView(.horizontal) {
                 HStack(spacing: 40) {
+                    
                     ForEach(recollectionCenters) { center in
                         VStack {
                             Image(center.imageName)
@@ -86,6 +89,7 @@ struct Cards: View {
                             .frame(height: 100)
                         }
                     }
+                    
                 }
             }
            .padding(.top, 12)
@@ -96,7 +100,7 @@ struct Cards: View {
 }
 
 struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView(authenticationViewModel: AuthenticationViewModel())
-    }
-}
+     static var previews: some View {
+         HomeView(authenticationViewModel: AuthenticationViewModel())
+     }
+ }

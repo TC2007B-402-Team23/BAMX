@@ -16,7 +16,13 @@ struct DonationsView: View {
     let selectedCenterID: String
     let selectedDate: Date
     let selectedHour: String
-    @State private var selectedDonation: [String: Double] = [:]
+    @State private var selectedDonation: [String: Double] = [
+        "Arroz": 0.0,
+        "Frijoles": 0.0,
+        "Lentejas": 0.0,
+        "Enlatados": 0.0,
+        "Aceite": 0.0
+    ]
 
     var body: some View {
         NavigationView {
@@ -26,7 +32,8 @@ struct DonationsView: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .padding(.top, 50)
-
+                    
+                    
                     FoodList(foodName: "Arroz", quantity: $quantity1)
                         .onChange(of: quantity1) { newValue in
                             selectedDonation["Arroz"] = newValue
@@ -117,7 +124,7 @@ struct DonationsView: View {
 
     struct DonationsView_Previews: PreviewProvider {
         static var previews: some View {
-            DonationsView(selectedCenterID: "NA", selectedDate: Date(), selectedHour: "")
+            DonationsView(selectedCenterID: String(), selectedDate: Date(), selectedHour: String())
         }
     }
 }
