@@ -13,7 +13,7 @@ struct DonationsView: View {
     @State private var quantity4 = 0.0
     @State private var quantity5 = 0.0
 
-    let selectedCenter: String
+    let selectedCenterID: String
     let selectedDate: Date
     let selectedHour: String
     @State private var selectedDonation: [String: Double] = [:]
@@ -51,7 +51,7 @@ struct DonationsView: View {
                 .padding()
 
                 Divider()
-                NavigationLink(destination: HoursView(selectedCenter: selectedCenter, selectedDate: selectedDate).navigationBarBackButtonHidden(true)) {
+                NavigationLink(destination: HoursView(selectedCenterID: selectedCenterID, selectedDate: selectedDate).navigationBarBackButtonHidden(true)) {
                     HStack {
                         Image(systemName: "arrow.left.circle.fill")
                             .resizable()
@@ -65,7 +65,7 @@ struct DonationsView: View {
                 .offset(y: -1145)
                 .offset(x: -120)
 
-                NavigationLink(destination: SummaryView(selectedCenter: selectedCenter, selectedDate: selectedDate, selectedHour: selectedHour, selectedDonation: selectedDonation)) {
+                NavigationLink(destination: SummaryView(selectedCenterID: selectedCenterID, selectedDate: selectedDate, selectedHour: selectedHour, selectedDonation: selectedDonation)) {
                     Text("Donar")
                         .font(.headline)
                         .foregroundColor(.white)
@@ -117,7 +117,7 @@ struct DonationsView: View {
 
     struct DonationsView_Previews: PreviewProvider {
         static var previews: some View {
-            DonationsView(selectedCenter: "NA", selectedDate: Date(), selectedHour: "")
+            DonationsView(selectedCenterID: "NA", selectedDate: Date(), selectedHour: "")
         }
     }
 }

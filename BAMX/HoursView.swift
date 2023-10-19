@@ -8,10 +8,12 @@ import SwiftUI
 
 struct HoursView: View {
     @State private var selectedHour: String = ""
-    let selectedCenter: String
+    let selectedCenterID: String
     let selectedDate: Date
 
     var body: some View {
+        Text("Selected Date: \(selectedDate)")
+
         NavigationView {
             ZStack{
                 Color(#colorLiteral(red: 0.8666, green: 0.5215, blue: 0.0392, alpha: 1))
@@ -44,7 +46,7 @@ struct HoursView: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: DonationsView(selectedCenter: selectedCenter, selectedDate: selectedDate, selectedHour: selectedHour)) {
+                    NavigationLink(destination: DonationsView(selectedCenterID: selectedCenterID, selectedDate: selectedDate, selectedHour: selectedHour)) {
                         Text("Continuar")
                             .font(.headline)
                             .foregroundColor(.white)
@@ -57,7 +59,7 @@ struct HoursView: View {
                             .navigationBarBackButtonHidden(true)
                     }
                 }
-                NavigationLink(destination: CalendarView(selectedCenter: selectedCenter).navigationBarBackButtonHidden(true)) {
+                NavigationLink(destination: CalendarView(selectedCenterID: selectedCenterID).navigationBarBackButtonHidden(true)) {
                     HStack {
                         Image(systemName: "arrow.left.circle.fill")
                             .resizable()
@@ -110,6 +112,6 @@ struct HourButton: View {
 
 struct HoursView_Previews: PreviewProvider {
     static var previews: some View {
-        HoursView(selectedCenter: "NA", selectedDate: Date())
+        HoursView(selectedCenterID: "NA", selectedDate: Date())
     }
 }

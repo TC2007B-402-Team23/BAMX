@@ -8,9 +8,10 @@ import SwiftUI
 
 struct CalendarView: View {
     @State private var selectedDate = Date()
-    let selectedCenter: String
-    
+    let selectedCenterID: String
+
     var body: some View {
+        Text("Selected Center: \(selectedCenterID)")
         NavigationView {
             ZStack {
                 Color(#colorLiteral(red: 0.8666, green: 0.5215, blue: 0.0392, alpha: 1))
@@ -23,7 +24,8 @@ struct CalendarView: View {
                 VStack {
                     Spacer()
                     Horarios(selectedDate: $selectedDate)
-                    NavigationLink(destination: HoursView(selectedCenter: selectedCenter, selectedDate: selectedDate)) {
+                    
+                    NavigationLink(destination: HoursView(selectedCenterID: selectedCenterID, selectedDate: selectedDate)) {
                         Text("Continuar")
                             .font(.headline)
                             .foregroundColor(.white)
@@ -81,6 +83,6 @@ struct Horarios: View {
 
 struct CalendarView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarView(selectedCenter: "NA")
+        CalendarView(selectedCenterID: "NA")
     }
 }
